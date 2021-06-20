@@ -1,5 +1,10 @@
 package dev.vang.repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,7 +18,9 @@ public class UserRepoImpl implements UserRepo {
 		UserRepo ur = new UserRepoImpl();
 		Users u = new Users("mot","vang", "tcvaj", "password", "assistant", "manga");
 //		ur.createUser(u);
-		u = ur.getUserById(2);
+//		u = ur.getUserById(2);
+//		System.out.println(u);
+		u = ur.getByUserandPass("dfel", "password");
 		System.out.println(u);
 		
 	}
@@ -66,6 +73,27 @@ public class UserRepoImpl implements UserRepo {
 			s.close();
 		}
 
+		
+	}
+	@Override
+	public Users getByUserandPass(String username, String password) {
+		Session s = HibernateUtil.getSession();
+		Users u = null;
+		try {
+			CriteriaBuilder cb = s.getCriteriaBuilder();
+			CriteriaQuery<Users> cr = cb.createQuery(Users.class);
+			Root<Users> root = cr.from(Users.class);
+			Predicate p1 = cb.equal(root.get("userName"), username);
+			Predicate p2 = cb.equal(root.get("password"), password);
+			cr.select(root).where(cb.and(p1,p2));
+			u = s.createQuery(cr).getSingleResult();
+			return u;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			s.close();
+		}
+		return u;
 		
 	}
 	

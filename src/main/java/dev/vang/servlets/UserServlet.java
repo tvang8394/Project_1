@@ -20,6 +20,8 @@ public class UserServlet extends HttpServlet {
 	UserRepo ur = new UserRepoImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		response.setHeader("Access-Control-Allow-Origin", "*");
+	    response.setHeader("Access-Control-Allow-Credentials", "true");
 		PrintWriter pw = response.getWriter();
 		Users u = ur.getUserById(1);
 		
@@ -29,7 +31,11 @@ public class UserServlet extends HttpServlet {
 	}
 	
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Users u = gson.fromJson(request.getReader(), Users.class);
 		
+		System.out.println(u);
+		response.getWriter().append(gson.toJson(u));
+		ur.createUser(u);
 	}
 }

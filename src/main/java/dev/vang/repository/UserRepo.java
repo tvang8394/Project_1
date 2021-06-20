@@ -6,4 +6,5 @@ public interface UserRepo {
 	public Users getUserById(Integer id);
 	public void updateUser(Users u);
 	public void createUser(Users u);
+	public Users getByUserandPass(String username, String password);
 }
