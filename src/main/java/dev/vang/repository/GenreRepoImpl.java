@@ -1,5 +1,8 @@
 package dev.vang.repository;
 
+import java.util.List;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import dev.vang.models.Genre;
@@ -18,6 +21,23 @@ public class GenreRepoImpl implements GenreRepo {
 		Genre g = s.get(Genre.class, 1);
 		s.close();
 		return g;
+	}
+	@Override
+	public List<Genre> getAllGenre() {
+		Session s = HibernateUtil.getSession();
+		List<Genre> genre = null;
+		
+		try {
+			genre = s.createQuery("FROM genre").list();
+			System.out.println(genre);
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			s.close();
+		}
+		
+		return genre;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import dev.vang.models.Genre;
 import dev.vang.models.Users;
 import dev.vang.utils.HibernateUtil;
 
@@ -16,11 +17,14 @@ public class UserRepoImpl implements UserRepo {
 
 	public static void main(String[] args) {
 		UserRepo ur = new UserRepoImpl();
-		Users u = new Users("mot","vang", "tcvaj", "password", "assistant", "manga");
-//		ur.createUser(u);
+		Genre g = new Genre();
+		g.setGenre("manga");
+		g.setGenreId(1);
+		Users u = new Users("mot","vang", "tcvaj", "password", "assistant", g);
+		ur.createUser(u);
 //		u = ur.getUserById(2);
 //		System.out.println(u);
-		u = ur.getByUserandPass("dfel", "password");
+//		u = ur.getByUserandPass("tcvaj", "password");
 		System.out.println(u);
 		
 	}

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,7 +35,7 @@ public class Pitch {
 	@JoinColumn(name="story_type")
 	private Type storyType; // points depend on story type
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="genre")
 	private Genre genre;
 	
@@ -69,6 +69,20 @@ public class Pitch {
 		this.description = description;
 		this.imgFile = imgFile;
 	}
+
+	
+	public Pitch(Users userId, String title, LocalDate completionDate, Type storyType, Genre genre, String tagLine,
+			String description) {
+		super();
+		this.userId = userId;
+		this.title = title;
+		this.completionDate = completionDate;
+		this.storyType = storyType;
+		this.genre = genre;
+		this.tagLine = tagLine;
+		this.description = description;
+	}
+
 
 	public Pitch() {
 		super();

@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="users")
@@ -14,7 +17,7 @@ public class Users{
 	@Id
 	@Column(name="user_id", insertable=false, updatable=false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer assistantId;
+	private Integer userId;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -26,19 +29,23 @@ public class Users{
 	private String userName;
 	@Column(name="password")
 	private String password;
+	
+	
 	@Column(name="type")
 	private String type;
-	@Column(name="genre")
-	private String genre;
+	
+	@ManyToOne
+	@JoinColumn(name="genre")
+	private Genre genre;
 	
 	
 	public Users() {
 		super();
 	}
-	public Users(Integer assistantId, String firstName, String lastName, String userName, String password, String type,
-			String genre) {
+	public Users(Integer userId, String firstName, String lastName, String userName, String password, String type,
+			Genre genre) {
 		super();
-		this.assistantId = assistantId;
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -46,7 +53,7 @@ public class Users{
 		this.type = type;
 		this.genre = genre;
 	}
-	public Users(String firstName, String lastName, String userName, String password, String type, String genre) {
+	public Users(String firstName, String lastName, String userName, String password, String type, Genre genre) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -55,11 +62,11 @@ public class Users{
 		this.type = type;
 		this.genre = genre;
 	}
-	public Integer getAssistantId() {
-		return assistantId;
+	public Integer getuserId() {
+		return userId;
 	}
-	public void setAssistantId(Integer assistantId) {
-		this.assistantId = assistantId;
+	public void setuserId(Integer userId) {
+		this.userId = userId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -91,17 +98,17 @@ public class Users{
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getGenre() {
+	public Genre getGenre() {
 		return genre;
 	}
-	public void setGenre(String genre) {
+	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assistantId == null) ? 0 : assistantId.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -119,10 +126,10 @@ public class Users{
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (assistantId == null) {
-			if (other.assistantId != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!assistantId.equals(other.assistantId))
+		} else if (!userId.equals(other.userId))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -158,7 +165,7 @@ public class Users{
 	}
 	@Override
 	public String toString() {
-		return "Users [assistantId=" + assistantId + ", firstName=" + firstName + ", lastName=" + lastName
+		return "Users [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", userName=" + userName + ", password=" + password + ", type=" + type + ", genre=" + genre + "]";
 	}
 	
