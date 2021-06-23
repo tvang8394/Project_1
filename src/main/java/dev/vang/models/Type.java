@@ -19,6 +19,7 @@ public class Type {
 	//novels = 50
 	//novellas = 25
 	//short stories = 10
+	private Integer points;
 	public Type() {
 		super();
 	}

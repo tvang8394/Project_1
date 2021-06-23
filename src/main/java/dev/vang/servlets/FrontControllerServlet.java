@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,6 @@ public class FrontControllerServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		
 //		System.out.println(session.getId());
 		
 		
@@ -46,12 +46,13 @@ public class FrontControllerServlet extends HttpServlet {
 			response.setHeader("Access-Control-Allow-Origin", "*");
 		    response.setHeader("Access-Control-Allow-Credentials", "true");
 			PrintWriter pw = response.getWriter();
-			Users u = ur.getUserById(25);
+			Users u = ur.getUserById(7);
 			
 			response.getWriter().append(gson.toJson(u, Users.class));
 			System.out.println(u);
 //			HttpSession session = request.getSession();
-//			System.out.println(session.getId());
+			session.getAttribute("loggedUser");
+			System.out.println("session " + session.getId());
 //			session.setAttribute("gottenUser", u);
 			break;
 		}
@@ -64,20 +65,32 @@ public class FrontControllerServlet extends HttpServlet {
 				
 //				HttpSession session = request.getSession();
 				System.out.println(session.getId());
-				session.setAttribute("createdUser", u);
+				//session.setAttribute("createdUser", u);
 				ur.createUser(u);
 			}
 			break;
 		}
 		case "/Project_1": {
-			response.getWriter().append("\n" + session.getAttribute("gottenUser"));
+			response.getWriter().append("\n" + session.getAttribute("loggedUser"));
 			System.out.println(session.getId());
 			System.out.println(session.getAttribute("loggedUser"));
 			break;
 		}
 		case "/Project_1/login": {
-			response.sendRedirect("/Project_1/LoginServlet");
-			response.getWriter().append("\n" + "made it");
+//			response.sendRedirect("/Project_1/LoginServlet");
+//			response.getWriter().append("\n" + "made it");
+//		
+//			System.out.println("login " + session.getId());
+//			System.out.println("login " + session.getAttribute("loggedUser"));
+			
+			Users u = gson.fromJson(request.getReader(), Users.class);
+			
+			u = ur.getByUserandPass(u.getUserName(), u.getPassword());
+			response.getWriter().append(gson.toJson(u, Users.class));
+			System.out.println(u);
+//			HttpSession session = request.getSession();
+			session.setAttribute("loggedUser", u);
+
 			System.out.println("login " + session.getId());
 			System.out.println("login " + session.getAttribute("loggedUser"));
 			break;
@@ -91,8 +104,8 @@ public class FrontControllerServlet extends HttpServlet {
 				
 //				HttpSession session = request.getSession();
 				ur.createUser(u);
-				System.out.println(session.getId());
-				session.setAttribute("createdUser", u);
+//				System.out.println(session.getId());
+//				session.setAttribute("createdUser", u);
 				
 			}
 			break;
@@ -139,7 +152,36 @@ public class FrontControllerServlet extends HttpServlet {
 //			session.setAttribute("gottenUser", u);
 			break;
 		}
+		case "/Project_1/getAllPitch": {
+			response.setHeader("Access-Control-Allow-Origin", "*");
+		    response.setHeader("Access-Control-Allow-Credentials", "true");
+//			PrintWriter pw = response.getWriter();
+			List<Pitch> p = pr.getAllPitch();
+			System.out.println(p);
+			response.getWriter().append(gson.toJson(p));
+			break;
 		}
+		case "/Project_1/deletePitch": {
+			Pitch p = gson.fromJson(request.getReader(), Pitch.class);
+			System.out.println(p);
+			pr.deletePitch(p);
+//			response.getWriter().append(gson.toJson(p, Users.class));
+			break;
+		}
+		case "/Project_1/updatePitch": {
+			Pitch p = gson.fromJson(request.getReader(), Pitch.class);
+			
+			System.out.println(p);
+			response.getWriter().append(gson.toJson(p));
+			if (p != null) {
+				
+				
+//				HttpSession session = request.getSession();
+			pr.updatePitch(p);
+			
+		}
+		}}
+		
 	}
 	
 	@Override

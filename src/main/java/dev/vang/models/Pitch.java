@@ -1,5 +1,6 @@
 package dev.vang.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Pitch {
 	private String title;
 	
 	@Column(name="completion_date")
-	private LocalDate completionDate;
+	private String completionDate;
 	
 	@OneToOne
 	@JoinColumn(name="story_type")
@@ -45,8 +46,8 @@ public class Pitch {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="image_file")
-	private String imgFile;
+//	@Column(name="image_file")
+//	private String imgFile;
 	
 	@Column(name="assistant_approval")
 	private boolean assistantApproval;
@@ -57,21 +58,21 @@ public class Pitch {
 	@Column(name="senior_approval")
 	private boolean seniorApproval;
 
-	public Pitch(Users userId, String title, LocalDate completionDate, Type storyType, Genre genre, String tagLine,
-			String description, String imgFile) {
-		super();
-		this.userId = userId;
-		this.title = title;
-		this.completionDate = completionDate;
-		this.storyType = storyType;
-		this.genre = genre;
-		this.tagLine = tagLine;
-		this.description = description;
-		this.imgFile = imgFile;
-	}
+//	public Pitch(Users userId, String title, String completionDate, Type storyType, Genre genre, String tagLine,
+//			String description) {
+//		super();
+//		this.userId = userId;
+//		this.title = title;
+//		this.completionDate = completionDate;
+//		this.storyType = storyType;
+//		this.genre = genre;
+//		this.tagLine = tagLine;
+//		this.description = description;
+////		this.imgFile = imgFile;
+//	}
 
 	
-	public Pitch(Users userId, String title, LocalDate completionDate, Type storyType, Genre genre, String tagLine,
+	public Pitch(Users userId, String title, String completionDate, Type storyType, Genre genre, String tagLine,
 			String description) {
 		super();
 		this.userId = userId;
@@ -88,7 +89,7 @@ public class Pitch {
 		super();
 	}
 
-	public Pitch(Integer pitchId, Users userId, String title, LocalDate completionDate, Type storyType, Genre genre,
+	public Pitch(Integer pitchId, Users userId, String title, String completionDate, Type storyType, Genre genre,
 			String tagLine, String description, String imgFile, boolean assistantApproval, boolean generalApproval,
 			boolean seniorApproval) {
 		super();
@@ -100,7 +101,7 @@ public class Pitch {
 		this.genre = genre;
 		this.tagLine = tagLine;
 		this.description = description;
-		this.imgFile = imgFile;
+//		this.imgFile = imgFile;
 		this.assistantApproval = assistantApproval;
 		this.generalApproval = generalApproval;
 		this.seniorApproval = seniorApproval;
@@ -132,11 +133,11 @@ public class Pitch {
 		this.title = title;
 	}
 
-	public LocalDate getCompletionDate() {
+	public String getCompletionDate() {
 		return completionDate;
 	}
 
-	public void setCompletionDate(LocalDate completionDate) {
+	public void setCompletionDate(String completionDate) {
 		this.completionDate = completionDate;
 	}
 
@@ -172,13 +173,13 @@ public class Pitch {
 		this.description = description;
 	}
 
-	public String getImgFile() {
-		return imgFile;
-	}
-
-	public void setImgFile(String imgFile) {
-		this.imgFile = imgFile;
-	}
+//	public String getImgFile() {
+//		return imgFile;
+//	}
+//
+//	public void setImgFile(String imgFile) {
+//		this.imgFile = imgFile;
+//	}
 
 	public boolean isAssistantApproval() {
 		return assistantApproval;
@@ -213,7 +214,6 @@ public class Pitch {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + (generalApproval ? 1231 : 1237);
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
-		result = prime * result + ((imgFile == null) ? 0 : imgFile.hashCode());
 		result = prime * result + ((pitchId == null) ? 0 : pitchId.hashCode());
 		result = prime * result + (seniorApproval ? 1231 : 1237);
 		result = prime * result + ((storyType == null) ? 0 : storyType.hashCode());
@@ -251,11 +251,6 @@ public class Pitch {
 				return false;
 		} else if (!genre.equals(other.genre))
 			return false;
-		if (imgFile == null) {
-			if (other.imgFile != null)
-				return false;
-		} else if (!imgFile.equals(other.imgFile))
-			return false;
 		if (pitchId == null) {
 			if (other.pitchId != null)
 				return false;
@@ -290,8 +285,8 @@ public class Pitch {
 	public String toString() {
 		return "Pitch [pitchId=" + pitchId + ", userId=" + userId + ", title=" + title + ", completionDate="
 				+ completionDate + ", storyType=" + storyType + ", genre=" + genre + ", tagLine=" + tagLine
-				+ ", description=" + description + ", imgFile=" + imgFile + ", assistantApproval=" + assistantApproval
-				+ ", generalApproval=" + generalApproval + ", seniorApproval=" + seniorApproval + "]";
+				+ ", description=" + description + ", assistantApproval=" + assistantApproval + ", generalApproval="
+				+ generalApproval + ", seniorApproval=" + seniorApproval + "]";
 	}
 	
 	

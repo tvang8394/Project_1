@@ -39,5 +39,10 @@ public class GenreRepoImpl implements GenreRepo {
 		
 		return genre;
 	}
+	@Override
+	public void createGenre(Genre g) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
