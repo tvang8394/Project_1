@@ -57,6 +57,10 @@ public class Pitch {
 	
 	@Column(name="senior_approval")
 	private boolean seniorApproval;
+	
+	@Column(name="denied")
+	private boolean denied;
+	
 
 //	public Pitch(Users userId, String title, String completionDate, Type storyType, Genre genre, String tagLine,
 //			String description) {
@@ -72,6 +76,30 @@ public class Pitch {
 //	}
 
 	
+	public Pitch(Users userId, String title, String completionDate, Type storyType, Genre genre, String tagLine,
+			String description, boolean denied) {
+		super();
+		this.userId = userId;
+		this.title = title;
+		this.completionDate = completionDate;
+		this.storyType = storyType;
+		this.genre = genre;
+		this.tagLine = tagLine;
+		this.description = description;
+		this.denied = denied;
+	}
+
+
+	public boolean isDenied() {
+		return denied;
+	}
+
+
+	public void setDenied(boolean denied) {
+		this.denied = denied;
+	}
+
+
 	public Pitch(Users userId, String title, String completionDate, Type storyType, Genre genre, String tagLine,
 			String description) {
 		super();
@@ -211,6 +239,7 @@ public class Pitch {
 		int result = 1;
 		result = prime * result + (assistantApproval ? 1231 : 1237);
 		result = prime * result + ((completionDate == null) ? 0 : completionDate.hashCode());
+		result = prime * result + (denied ? 1231 : 1237);
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + (generalApproval ? 1231 : 1237);
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
@@ -238,6 +267,8 @@ public class Pitch {
 			if (other.completionDate != null)
 				return false;
 		} else if (!completionDate.equals(other.completionDate))
+			return false;
+		if (denied != other.denied)
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -286,7 +317,7 @@ public class Pitch {
 		return "Pitch [pitchId=" + pitchId + ", userId=" + userId + ", title=" + title + ", completionDate="
 				+ completionDate + ", storyType=" + storyType + ", genre=" + genre + ", tagLine=" + tagLine
 				+ ", description=" + description + ", assistantApproval=" + assistantApproval + ", generalApproval="
-				+ generalApproval + ", seniorApproval=" + seniorApproval + "]";
+				+ generalApproval + ", seniorApproval=" + seniorApproval + ", denied=" + denied + "]";
 	}
 	
 	

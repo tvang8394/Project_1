@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +23,13 @@ import dev.vang.repository.TypeRepo;
 import dev.vang.repository.TypeRepoImpl;
 import dev.vang.repository.UserRepo;
 import dev.vang.repository.UserRepoImpl;
+import dev.vang.services.PitchServiceRepo;
+import dev.vang.services.PitchServiceRepoImpl;
 
 public class FrontControllerServlet extends HttpServlet {
 	public Gson gson = new Gson();
 	UserRepo ur = new UserRepoImpl();
+	PitchServiceRepo ps = new PitchServiceRepoImpl();
 	GenreRepo gr = new GenreRepoImpl();
 	PitchRepo pr = new PitchRepoImpl();
 	TypeRepo tr = new TypeRepoImpl();
@@ -175,12 +177,26 @@ public class FrontControllerServlet extends HttpServlet {
 			response.getWriter().append(gson.toJson(p));
 			if (p != null) {
 				
+				ps.updateAssistantApproval(p);
 				
 //				HttpSession session = request.getSession();
-			pr.updatePitch(p);
+			
 			
 		}
-		}}
+		}
+		case "/Project_1/editPitch": {
+			Pitch p = gson.fromJson(request.getReader(), Pitch.class);
+			
+			System.out.println(p);
+			response.getWriter().append(gson.toJson(p));
+			if (p != null) {
+				
+				ps.updateAssistantApproval(p);
+				
+//				HttpSession session = request.getSession();
+		}
+		}
+		}
 		
 	}
 	
