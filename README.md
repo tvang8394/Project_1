@@ -1,6 +1,4 @@
-PROJECT NAME
-Project Description
-
+# Story Pitch Management System
 SPMS, or Story Pitch Management System, is a full-stack web application that allows authors to submit story pitches to a publishing company. The pitch can then be approved or rejected by editors at various levels and in various committees based on genre and story length before the author is able to submit a draft of the story. The authors are able to track the status of their pitches throughout the process.
 
 # Technologies Used
@@ -25,6 +23,13 @@ List of features ready and TODOs for future development
 
 - If the senior editor changes any information from the pitch, the author should be notified and have the opportunity to either approve the changes or cancel the pitch. If the senior editor takes too long to approve the pitch, it should be labelled as “high priority” for them and shown at the top of the list of pitches that require approval, but this should not prevent them from reviewing other pitches.
 
+# Getting started
+- Clone repository
+- Import in to proper IDE (Eclpise or STS)
+- Start project
+- Must connect a RDBMS. (Status: offline)
 
+# Contributors
+Tom Vang
 
 
